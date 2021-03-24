@@ -110,7 +110,7 @@ Se usan los dos servicios disponibles en la aplicacion
 
 ## Documentacion
   
-Para encontrar toda la documentación relacionada puedes hacer click [aqui](https://github.com/nicolasOL/Parcial-2-AREP/blob/main/LICENSE.txt)
+Para encontrar toda la documentación relacionada puedes hacer click [aqui](https://github.com/nicolasOL/Parcial-2-AREP/tree/main/docs)
   
   ## Author
   
