@@ -2,22 +2,30 @@
 # Escuela Colombiana de Ingeniería Julio Garavito - Arquitecturas Empresarial AREP - Parcial segundo corte AREP
 # AREP
 ## REQUERIMIENTOS
-Su compañía lo ha seleccionado para construir un simple webservice desplegada en Heroku para uno de los clientes más importantes.
+Diseñe, construya y despliegue los siguientes servicios en un microcontenedor docker desplegado en una instancei a EC2 de AWS. Cada estudiante debe seleccionar para desarrollar dos funciones matemáticas de acuerdo a los dos últimos dígitos de su cédula como se especifica en la lista. Todas las funciones reciben un solo parámetro de tipo "Double" y retornan una prámetro sde tipo "Double".
 
-Así, han decidido que usted debe construir un webservice  para consultar el estado del clima en lugares específicos de la tierra.  El servicio web recibirá en un campo la descripción de una ciudad, por ejemplo “London” para Londres   y deberá mostrar la información del clima para esa ciudad. Para esto utilice el API gratuito de https://openweathermap.org/ (Puede crear una cuenta para obtener la llave para realizar consultas). Se le pide que su implementación sea eficiente en cuanto a recursos así que debe implementar un caché que permita evitar hacer consultas repetidas al API externo. La petición debe pasar por su servicio web desplegado en Heroku, es decir desde su servicio en Heroku se debe invocar el servicio web de clima. El usuario no sabrá qué servicio está usted invocando por detrás. Utilice el servicio "Current Weather Data".
+* asin
+* exp (el número de eauler elevado ala potendia del parámetro)
 
-## Diseño
+Implemente los servicios para responder al método de solicitud HTTP GET. Deben usar el nombre de la función especificado en la lista y el parámetro debe ser pasado en la variable de query con nombre "value".
 
-  Diseño de la aplicación
-  
-  ![Diseño1]()
+Ejemplo de una llamado:
 
-Debe usar spark o sockets.
+https://amazonxxx.x.xxx.x.xxx:{port}/cos?value=3.141592
 
-## Cuenta con 
-* [Heroku](https://heroku.com) - Despliegue web [![Deploy]()
-* [Circle CI]() - Integración Continua ![CircleCI]()
-  ### Requisitos
+
+Salida. El formato de la salida y la respuesta debe ser un JSON con el siguiente formato
+
+{
+
+ "operation": "cos",
+
+ "input":  3.141592,
+
+ "output":  -0.999999
+
+}
+
   
   Si deseas usarlo en tu maquina local, es necesario tener:
   
@@ -25,7 +33,6 @@ Debe usar spark o sockets.
   * Java 
   * Git
   * Spark  
-  
 
  ### Como usarlo?
   ## Localmente:
@@ -33,13 +40,13 @@ Debe usar spark o sockets.
 nuestra preferencia. En consola vamos a digitar el siguiente comando para clonar el repositorio.
 
 ```
-git clone https://github.com/nicolasOL/AREP-WEATHER-API
+git clone https://github.com/nicolasOL/Parcial-2-AREP/
 ```
 
 Entremos a el directorio del proyecto
 
 ```
-cd clima
+cd Parcial-2-AREP
 ```
 
 Debemos compilar el proyecto, que contiene las clases necesarias para poder correr la app. Por medio de maven vamos a crear todos los compilables **.class**. Desde consola, y ubicados en la carpeta donde se encuentra nuestra configuración de maven.
@@ -52,7 +59,7 @@ Ahora que nuestras clases etan compiladas vamos a ejecutar la clase principal pa
 ver el código en acción :
 
 ```
-mvn exec:java -Dexec.mainClass="edu.escuelaing.arem.clima.main"
+mvn exec:java -Dexec.mainClass="edu.escuelaing.arem.parcial.parcialWebServer.ParcialWebServer"
 ```
 Los datos del programa se reciben por entrada en el despliegue separados por espacios.
    
@@ -61,19 +68,46 @@ Para ejecutar las pruebas es necesario ejecutar:
 ```
 mvn test
 ```     
-
-El proyecto cuenta con 5 pruebas unitarias que se ejecutan correctamente:
-
- ![TEST]()
+ ## Generación de imágenes y contenedores Docker 
+ En total el proyecto se compone de una imagen.
+ 1. Para desplegar el proyecto, se deben clonar los dos repisotorios que contienen la apliación web y el servicio log, en principio, para hacer algunas configuraciones:
+   ```
+   git clone https://github.com/nicolasOL/Parcial-2-AREP/
+   ```
  
-Ademas se puede probar con el despliegue en Heroku de la siguiente manera:
-https://arep-clima-api.herokuapp.com/clima?lugar=XXXXX
-Donde las XXXX representan la ciudad que quieras buscar
-Retornando un Json exactamente igual al que retorna el servicio de openweathermap denominado "Current Weather Data". Asegurese que el tipo de retorno sea Json.
+ 2. Para generar las imágenes y los contenedores de cada servicio se deben ejecutar los siguientes comandos:                                                     
+  - En el directorio raíz del servicio web:                                                                                     
+    Imagen:
+    ```
+    docker build --tag parcialarep .
+    ```
+    Contenedor:
+    ```
+    docker run -d -p 80:6000 --name parcialarep
+    ```                                                 
+    Al final se ejecuta la imagen con:
+      ```
+      docker run -d -p 80:6000 --name parcialarep
+      ```
+
+ ## Despliegue AWS EC2
+ Accediendo al siguiente link se puede tener acceso a la aplicación web:                                                       
+ http://ec2-54-165-200-75.compute-1.amazonaws.com/
+ y usando 
+ ```
+http://ec2-54-165-200-75.compute-1.amazonaws.com/asin?value=XXXXXXXXXXX
+``` 
+O
+ ```
+http://ec2-54-165-200-75.compute-1.amazonaws.com/exp?value=XXXXXXXXXXX
+```
+Se usan los dos servicios disponibles en la aplicacion
+
+ 
 
 ## Documentacion
   
-Para encontrar toda la documentación relacionada puedes hacer click [aqui]()
+Para encontrar toda la documentación relacionada puedes hacer click [aqui](https://github.com/nicolasOL/Parcial-2-AREP/blob/main/LICENSE.txt)
   
   ## Author
   
@@ -81,4 +115,4 @@ Para encontrar toda la documentación relacionada puedes hacer click [aqui]()
   
   ## License
   
-  This project is licensed under the GNU General Public License v3.0 - see the [LICENSE]()
+  This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](https://github.com/nicolasOL/Parcial-2-AREP/blob/main/LICENSE.txt)
