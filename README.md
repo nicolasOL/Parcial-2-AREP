@@ -89,6 +89,9 @@ mvn test
       ```
       docker run -d -p 80:6000 --name parcialarep
       ```
+      
+      Evidencia del docker corriendo en EC2:
+      ![Docker](https://github.com/nicolasOL/Parcial-2-AREP/blob/main/docker.JPG)
 
  ## Despliegue AWS EC2
  Accediendo al siguiente link se puede tener acceso a la aplicación web:                                                       
