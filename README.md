@@ -105,7 +105,9 @@ O
 http://ec2-54-165-200-75.compute-1.amazonaws.com/exp?value=XXXXXXXXXXX
 ```
 Se usan los dos servicios disponibles en la aplicacion
+## Prueba funcionamiento
 
+Se adjunta un video mostrando el correcto funcionamiento de la aplicacion [aqui](https://github.com/nicolasOL/Parcial-2-AREP/blob/main/Video%20funcionamiento.mp4)
  
 
 ## Documentacion
